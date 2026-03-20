@@ -11,32 +11,28 @@ This repo contains:
 
 ### Architecture
 
-```
-┌─────────┐     1. GET /weather      ┌──────────────────┐
-│  Client  │ ──────────────────────→  │  Resource Server  │
-│  (payer) │ ←────────────────────── │  (paywall)        │
-│          │     2. 402 + payment     │                   │
-│          │        requirements      │                   │
-│          │                          │                   │
-│          │     3. GET /weather      │                   │
-│          │    + payment signature   │     4. verify()   │
-│          │ ──────────────────────→  │ ───────────────→  │
-│          │                          │                   │
-│          │     6. weather data      │     5. settle()   │
-│          │ ←────────────────────── │ ───────────────→  │
-└─────────┘    + tx receipt           └──────────────────┘
-                                              │
-                                              ▼
-                                      ┌───────────────┐
-                                      │  Facilitator   │
-                                      │  (this repo)   │
-                                      └───────┬───────┘
-                                              │
-                                              ▼
-                                      ┌───────────────┐
-                                      │   Flow EVM    │
-                                      │  (on-chain)   │
-                                      └───────────────┘
+```mermaid
+sequenceDiagram
+    participant C as Client (payer)
+    participant S as Resource Server (paywall)
+    participant F as Facilitator
+    participant E as Flow EVM (on-chain)
+
+    C->>S: 1. GET /weather
+    S-->>C: 2. 402 + PaymentRequirements
+
+    Note over C: Sign payment with<br/>EOA key or COA (EIP-1271)
+
+    C->>S: 3. GET /weather + payment signature
+    S->>F: 4. POST /verify
+    F-->>S: Payment valid
+
+    S-->>C: 5. Weather data + tx receipt
+
+    S->>F: 6. POST /settle
+    F->>E: transferWithAuthorization (stgUSDC)
+    E-->>F: tx hash
+    F-->>S: Settlement confirmed
 ```
 
 ## Live Facilitator
