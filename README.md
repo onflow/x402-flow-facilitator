@@ -7,7 +7,7 @@
 This repo contains:
 
 - **Facilitator** — Verifies and settles x402 payments on Flow EVM
-- **Examples** — Resource server (paywall) and client (payer) demos
+- **Examples** — Multiple server and client demos adapted from the [official x402 examples](https://github.com/coinbase/x402/tree/main/examples/typescript)
 
 ### Architecture
 
@@ -49,6 +49,25 @@ This repo contains:
 | `/settle` | POST | Settle payment on-chain |
 | `/supported` | GET | List supported networks |
 | `/health` | GET | Health check |
+
+## Examples
+
+### Servers (paywall)
+
+| Example | Framework | Description |
+|---------|-----------|-------------|
+| [`server`](examples/server) | Express | Basic Express resource server |
+| [`hono-server`](examples/hono-server) | Hono | Hono resource server |
+| [`mcp-server`](examples/mcp-server) | MCP + Express | MCP server with paid tools |
+| [`nextjs`](examples/nextjs) | Next.js | Full-stack Next.js app with `withX402` |
+
+### Clients (payer)
+
+| Example | Library | Description |
+|---------|---------|-------------|
+| [`client`](examples/client) | fetch | Native fetch with `@x402/fetch` |
+| [`axios-client`](examples/axios-client) | axios | Axios with `@x402/axios` interceptor |
+| [`mcp-client`](examples/mcp-client) | MCP | MCP client that pays for tool calls |
 
 ## Quick Start
 
