@@ -81,16 +81,16 @@ const evmSigner = toFacilitatorEvmSigner({
 // Initialize facilitator with lifecycle hooks
 const facilitator = new x402Facilitator()
   .onBeforeVerify(async (ctx) => {
-    console.log(`[verify] ${ctx.paymentRequirements.network} from ${ctx.paymentPayload.payload.authorization.from}`);
+    console.log(`[verify] ${ctx.requirements.network} from ${ctx.paymentPayload.accepted?.payTo || "unknown"}`);
   })
   .onAfterVerify(async (ctx) => {
-    console.log(`[verify] result: ${ctx.response?.valid ? "valid" : "invalid"}`);
+    console.log(`[verify] result: ${ctx.response?.isValid ? "valid" : "invalid"}`);
   })
   .onVerifyFailure(async (ctx) => {
     console.error(`[verify] failed:`, ctx.error);
   })
   .onAfterSettle(async (ctx) => {
-    console.log(`[settle] tx: ${ctx.response?.txHash}`);
+    console.log(`[settle] tx: ${ctx.response?.transaction}`);
   })
   .onSettleFailure(async (ctx) => {
     console.error(`[settle] failed:`, ctx.error);

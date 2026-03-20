@@ -155,7 +155,7 @@ Use this in your resource server to accept payments on Flow EVM:
   network: "eip155:747",
   asset: "0xF1815bd50389c46847f0Bda824eC8da914045D14",
   extra: {
-    name: "stgUSDC",
+    name: "Bridged USDC (Stargate)",
     version: "2",
   },
 }

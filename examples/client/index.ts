@@ -27,16 +27,24 @@ async function main(): Promise<void> {
   console.log("This will automatically handle x402 payment on Flow EVM...\n");
 
   const response = await fetchWithPayment(url, { method: "GET" });
-  const body = await response.json();
-  console.log("Response:", JSON.stringify(body, null, 2));
+  console.log("HTTP Status:", response.status);
+  console.log("Headers:");
+  response.headers.forEach((v, k) => console.log(`  ${k}: ${v}`));
 
-  const paymentResponse = new x402HTTPClient(client).getPaymentSettleResponse(
-    (name) => response.headers.get(name),
-  );
-  if (paymentResponse) {
-    console.log("\nPayment settled:");
-    console.log(`  Transaction: ${paymentResponse.transaction}`);
-    console.log(`  Network: ${paymentResponse.network}`);
+  const body = await response.json();
+  console.log("\nResponse:", JSON.stringify(body, null, 2));
+
+  try {
+    const paymentResponse = new x402HTTPClient(client).getPaymentSettleResponse(
+      (name) => response.headers.get(name),
+    );
+    if (paymentResponse) {
+      console.log("\nPayment settled:");
+      console.log(`  Transaction: ${paymentResponse.transaction}`);
+      console.log(`  Network: ${paymentResponse.network}`);
+    }
+  } catch {
+    console.log("\nNo payment settlement header (verify-only or settlement pending)");
   }
 }
 

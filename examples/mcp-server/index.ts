@@ -43,7 +43,7 @@ async function main(): Promise<void> {
     payTo,
     price: "$0.001",
     asset: "0xF1815bd50389c46847f0Bda824eC8da914045D14",
-    extra: { name: "stgUSDC", version: "2" },
+    extra: { name: "Bridged USDC (Stargate)", version: "2" },
   });
 
   const paidWeather = createPaymentWrapper(resourceServer, {
