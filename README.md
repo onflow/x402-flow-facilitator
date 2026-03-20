@@ -113,6 +113,27 @@ The client automatically handles the 402 payment flow:
 | Permit2 | [`0x000000000022D473030F116dDEE9F6B43aC78BA3`](https://evm.flow.com/address/0x000000000022D473030F116dDEE9F6B43aC78BA3) |
 | x402ExactPermit2Proxy | [`0x402085c248EeA27D92E8b30b2C58ed07f9E20001`](https://evm.flow.com/address/0x402085c248EeA27D92E8b30b2C58ed07f9E20001) |
 
+## Cadence (COA) Support
+
+x402 natively supports [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) smart contract signature verification, so COA (Cadence Owned Account) users can make x402 payments without any special handling.
+
+### Cadence Transactions
+
+| Transaction | Description |
+|-------------|-------------|
+| [`setup_x402.cdc`](cadence/transactions/setup_x402.cdc) | One-shot: create COA + fund with FLOW + approve Permit2 for stgUSDC |
+| [`approve_permit2.cdc`](cadence/transactions/approve_permit2.cdc) | Approve Permit2 to spend stgUSDC (if COA already exists) |
+
+### Usage with Flow CLI
+
+```bash
+# One-shot setup: create COA, deposit 1.0 FLOW, approve max stgUSDC for Permit2
+flow transactions send cadence/transactions/setup_x402.cdc \
+  1.0 \
+  115792089237316195423570985008687907853269984665640564039457584007913129639935 \
+  --network mainnet --signer mainnet-account
+```
+
 ## Self-Hosting the Facilitator
 
 ```bash

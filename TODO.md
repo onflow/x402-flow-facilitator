@@ -5,7 +5,9 @@
 - [x] x402ExactPermit2Proxy deployed at canonical address `0x402085c248EeA27D92E8b30b2C58ed07f9E20001`
 - [x] Self-hosted facilitator running on Railway (`https://facilitator.flowindex.io`)
 - [x] GitHub repo: https://github.com/onflow/x402-flow-facilitator
-- [x] Examples: server (paywall) + client (payer)
+- [x] Examples: Express, Hono, Next.js, MCP server/client, fetch, axios
+- [x] Cadence wrapper: `setup_x402.cdc` (create COA + fund + approve Permit2)
+- [x] EIP-1271 / COA support: **confirmed working** — x402 natively supports EIP-1271/EIP-6492
 - [x] Issue #1721: CDP facilitator support request (open)
 - [x] PR #1722: legacy network config (open)
 
@@ -61,25 +63,12 @@ Once the facilitator is on the official domain, submit a PR to add Flow EVM to t
 
 Branch is ready at `onflow/x402:ecosystem/add-flow-evm-facilitator`, just need to update `baseUrl` and re-open PR.
 
-### 3. COA / Smart Wallet Support (EIP-1271)
-
-COA (Cadence Owned Account) uses **EIP-1271** for signature verification — signatures are validated by the smart contract itself, not by a private key. This means:
-
-- x402's `verifyTypedData` needs to support EIP-1271 (`isValidSignature` on-contract check)
-- The current x402 EVM scheme may already handle this if it checks contract signatures
-- If not, we need to either:
-  - Contribute EIP-1271 support upstream to `@x402/evm`
-  - Or wrap the signature verification in our facilitator
-
-**Investigation needed:** Verify whether `@x402/evm`'s `ExactEvmScheme` already supports EIP-1271, or if it only validates EOA signatures (ecrecover).
-
-### 4. Remaining Items
+### 3. Remaining Items
 
 | Task | Status | Owner |
 |------|--------|-------|
 | Move facilitator to official domain + key pair | Pending | Flow team |
 | Re-submit ecosystem PR | Blocked on #1 | onflow |
-| EIP-1271 / COA support investigation | Pending | Dev |
 | USDC liquidity (Circle BD) | Pending | BD |
-| Tutorial / developer content | Done (examples in repo) | — |
 | CDP facilitator support (Issue #1721) | Waiting on Coinbase | — |
+| E2E test | Pending | Dev |
