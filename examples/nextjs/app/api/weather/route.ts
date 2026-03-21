@@ -19,14 +19,16 @@ export const GET = withX402(
     accepts: [
       {
         scheme: "exact",
-        price: "$0.001",
         network: "eip155:747",
-        payTo,
-        asset: "0xF1815bd50389c46847f0Bda824eC8da914045D14",
-        extra: {
-          name: "Bridged USDC (Stargate)",
-          version: "2",
+        price: {
+          amount: "1000",
+          asset: "0xF1815bd50389c46847f0Bda824eC8da914045D14",
+          extra: {
+            name: "Bridged USDC (Stargate)",
+            version: "2",
+          },
         },
+        payTo,
       },
     ],
     description: "Weather data on Flow EVM",

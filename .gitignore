@@ -1,5 +1,9 @@
 node_modules/
 dist/
 .env
+.next/
 examples/*/package-lock.json
 examples/*/node_modules/
+examples/*/yarn.lock
+examples/*/.next/
+examples/*/next-env.d.ts

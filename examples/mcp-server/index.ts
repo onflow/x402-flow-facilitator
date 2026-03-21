@@ -41,9 +41,11 @@ async function main(): Promise<void> {
     scheme: "exact",
     network: "eip155:747",
     payTo,
-    price: "$0.001",
-    asset: "0xF1815bd50389c46847f0Bda824eC8da914045D14",
-    extra: { name: "Bridged USDC (Stargate)", version: "2" },
+    price: {
+      amount: "1000",
+      asset: "0xF1815bd50389c46847f0Bda824eC8da914045D14",
+      extra: { name: "Bridged USDC (Stargate)", version: "2" },
+    },
   });
 
   const paidWeather = createPaymentWrapper(resourceServer, {

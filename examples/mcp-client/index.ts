@@ -22,12 +22,16 @@ async function main(): Promise<void> {
   console.log(`Server: ${serverUrl}\n`);
 
   // Create x402-enabled MCP client
-  const client = await createx402MCPClient({
-    transport: new SSEClientTransport(new URL(`${serverUrl}/sse`)),
+  const client = createx402MCPClient({
+    name: "x402-flow-mcp-client",
+    version: "1.0.0",
     schemes: [
       { network: "eip155:*", client: new ExactEvmScheme(evmSigner) },
     ],
   });
+
+  const transport = new SSEClientTransport(new URL(`${serverUrl}/sse`));
+  await client.connect(transport);
 
   // List available tools
   const { tools } = await client.listTools();
@@ -38,15 +42,12 @@ async function main(): Promise<void> {
 
   // Call free tool
   console.log("\nCalling ping (free)...");
-  const pingResult = await client.callTool({ name: "ping", arguments: {} });
+  const pingResult = await client.callTool("ping");
   console.log("Result:", JSON.stringify(pingResult.content, null, 2));
 
   // Call paid tool
   console.log("\nCalling get_weather (paid, $0.001 in stgUSDC)...");
-  const weatherResult = await client.callTool({
-    name: "get_weather",
-    arguments: { city: "San Francisco" },
-  });
+  const weatherResult = await client.callTool("get_weather", { city: "San Francisco" });
   console.log("Result:", JSON.stringify(weatherResult.content, null, 2));
 
   await client.close();
