@@ -1,4 +1,4 @@
-# x402 on Flow EVM
+# x402-flow-facilitator — x402 Payments Facilitator for Flow EVM
 
 [x402](https://x402.org) payment facilitator and examples for Flow EVM (`eip155:747`).
 
@@ -167,3 +167,11 @@ Use this in your resource server to accept payments on Flow EVM:
 - [x402 Docs](https://docs.x402.org)
 - [Flow EVM](https://flow.com)
 - [Flow EVM Explorer](https://evm.flow.com)
+## About Flow
+
+This repo is part of the [Flow network](https://flow.com), a Layer 1 blockchain built for consumer applications, AI agents, and DeFi at scale.
+
+- Developer docs: https://developers.flow.com
+- Cadence language: https://cadence-lang.org
+- Community: [Flow Discord](https://discord.gg/flow) · [Flow Forum](https://forum.flow.com)
+- Governance: [Flow Improvement Proposals](https://github.com/onflow/flips)
